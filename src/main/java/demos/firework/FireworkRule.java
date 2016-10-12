@@ -12,70 +12,26 @@ public class FireworkRule {
     public static final Vector3f GRAVITY = new Vector3f(0f, -9.81f, 0f);
     public static final Random random = new Random();
 
-    /**
-     * The type of demos.ballistic.firework that is managed by this rule.
-     */
     int type;
-
-    /**
-     * The minimum length of the fuse.
-     */
     float minAge;
-
-    /**
-     * The maximum legnth of the fuse.
-     */
     float maxAge;
-
-    /**
-     * The minimum relative velocity of this demos.ballistic.firework.
-     */
     Vector3f minVelocity;
-
-    /**
-     * The maximum relative velocity of this demos.ballistic.firework.
-     */
     Vector3f maxVelocity;
-
-    /**
-     * The damping of this demos.ballistic.firework type.
-     */
     float damping;
 
-    /**
-     * The payload is the new demos.ballistic.firework type to create when this demos.ballistic.firework's
-     * fuse is over.
-     */
     class Payload {
-        /**
-         * The type of the new particle to create.
-         */
-        int type;
 
-        /**
-         * The number of particles in this payload.
-         */
+        int type;
         int count;
 
-        /**
-         * Sets the payload properties in one go.
-         */
         void set(int type, int count) {
             this.type = type;
             this.count = count;
         }
     }
 
-    ;
 
-    /**
-     * The number of payloads for this demos.ballistic.firework type.
-     */
     int payloadCount;
-
-    /**
-     * The set of payloads.
-     */
     Payload[] payloads;
 
     void init(int payloadCount) {
@@ -88,9 +44,6 @@ public class FireworkRule {
 
     }
 
-    /**
-     * Set all the rule parameters in one go.
-     */
     void setParameters(int type, float minAge, float maxAge, Vector3f minVelocity, Vector3f maxVelocity,
                        float damping) {
         this.type = type;
@@ -101,11 +54,6 @@ public class FireworkRule {
         this.damping = damping;
     }
 
-    /**
-     * Creates a new demos.ballistic.firework of this type and writes it into the given
-     * instance. The optional parent demos.ballistic.firework is used to base position and
-     * velocity on.
-     */
     public Firework create(Firework parent) {
         Firework firework = new Firework();
         firework.setType(type);
@@ -113,8 +61,7 @@ public class FireworkRule {
 
         Vector3f vel;
         if (parent != null) {
-            // The position and velocity are based on the parent.
-            firework.setPosition(parent.getPosition());
+            firework.getPosition().set(parent.getPosition());
             vel = new Vector3f(parent.getVelocity());
             float xx = (maxVelocity.x - minVelocity.x) * random.nextFloat() + minVelocity.x;
             float yy = (maxVelocity.y - minVelocity.y) * random.nextFloat() + minVelocity.y;
@@ -124,7 +71,7 @@ public class FireworkRule {
             Vector3f start = new Vector3f();
             int x = random.nextInt(5) - 2;
             start.x = 5.0f * x;
-            firework.setPosition(start);
+            firework.getPosition().set(start);
 
             float xx = (maxVelocity.x - minVelocity.x) * random.nextFloat() + minVelocity.x;
             float yy = (maxVelocity.y - minVelocity.y) * random.nextFloat() + minVelocity.y;
@@ -132,17 +79,10 @@ public class FireworkRule {
             vel = new Vector3f(xx, yy, zz);
         }
 
-        firework.setVelocity(vel);
-
-        // We use a mass of one in all cases (no point having fireworks
-        // with different masses, since they are only under the influence
-        // of gravity).
+        firework.getVelocity().set(vel);
         firework.setMass(1);
-
         firework.setDamping(damping);
-
-        firework.setAcceleration(GRAVITY);
-
+        firework.getAcceleration().set(GRAVITY);
         firework.clearAccumulator();
 
         return firework;

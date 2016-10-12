@@ -65,8 +65,8 @@ public class AmmoRound extends Particle {
         AmmoRound shot = new AmmoRound();
 
         shot.setMass(2.0f); // 2.0kg
-        shot.setVelocity(0.0f, 0.0f, 35.0f); // 35m/s
-        shot.setAcceleration(0.0f, -1.0f, 0.0f);
+        shot.getVelocity().set(0.0f, 0.0f, 35.0f); // 35m/s
+        shot.getAcceleration().set(0.0f, -1.0f, 0.0f);
         shot.setDamping(0.99f);
 
         return shot;
@@ -77,8 +77,8 @@ public class AmmoRound extends Particle {
         AmmoRound shot = new AmmoRound();
 
         shot.setMass(200.0f); // 200.0kg
-        shot.setVelocity(0.0f, 30.0f, 40.0f); // 50m/s
-        shot.setAcceleration(0.0f, -20.0f, 0.0f);
+        shot.getVelocity().set(0.0f, 30.0f, 40.0f); // 50m/s
+        shot.getAcceleration().set(0.0f, -20.0f, 0.0f);
         shot.setDamping(0.99f);
 
         return shot;
@@ -88,8 +88,8 @@ public class AmmoRound extends Particle {
         AmmoRound shot = new AmmoRound();
 
         shot.setMass(1.0f); // 1.0kg - mostly blast damage
-        shot.setVelocity(0.0f, 0.0f, 10.0f); // 5m/s
-        shot.setAcceleration(0.0f, 0.6f, 0.0f); // Floats up
+        shot.getVelocity().set(0.0f, 0.0f, 10.0f); // 5m/s
+        shot.getAcceleration().set(0.0f, 0.6f, 0.0f); // Floats up
         shot.setDamping(0.9f);
 
         return shot;
@@ -101,8 +101,8 @@ public class AmmoRound extends Particle {
         // Note that this is the kind of laser bolt seen in films,
         // not a realistic laser beam!
         shot.setMass(0.0001f); // 0.1kg - almost no weight
-        shot.setVelocity(0.0f, 0.0f, 100.0f); // 100m/s
-        shot.setAcceleration(0.0f, 0.0f, 0.0f); // No gravity
+        shot.getVelocity().set(0.0f, 0.0f, 100.0f); // 100m/s
+        shot.getAcceleration().set(0.0f, 0.0f, 0.0f); // No gravity
         shot.setDamping(0.99f);
 
         return shot;
